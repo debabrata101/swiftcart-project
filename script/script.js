@@ -31,8 +31,8 @@ const displayCategory = (categories) => {
 
     button.addEventListener("click", () => {
 
-      removeActive(); // remove all active
-      setActive(button); // set clicked active
+      removeActive(); 
+      setActive(button);
 
       if (category === "all") {
         loadProducts("https://fakestoreapi.com/products");
@@ -93,7 +93,7 @@ const displayProducts = (products) => {
         </p>
 
         <div class="flex gap-3 pt-2">
-          <button class="flex-1 border border-gray-300 text-gray-600 py-2 rounded-lg hover:bg-gray-100 transition">
+          <button onclick="loadDetails(${product.id}) class="flex-1 border border-gray-300 text-gray-600 py-2 rounded-lg hover:bg-gray-100 transition">
             <i class="fa-regular fa-eye mr-1"></i> Details
           </button>
 
@@ -125,6 +125,63 @@ const removeActive = () => {
   });
 };
 
-
-// ================= INIT =================
 loadCategory();
+// ================= DETAILS =================
+
+const loadDetails = (id) => {
+
+  fetch(`https://fakestoreapi.com/products/${id}`)
+    .then(res => res.json())
+    .then(data => showModal(data));
+};
+
+//================DETAILS MODAL CARD ADD======================
+const showModal = (product) => {
+
+  const modalContent = document.getElementById("modal-content");
+
+  modalContent.innerHTML = `
+    <div class="grid md:grid-cols-2 gap-6 p-6">
+
+   
+      <div class="bg-gray-100 p-6 rounded-xl">
+        <img src="${product.image}"
+             class="h-64 mx-auto object-contain">
+      </div>
+
+     
+      <div class="space-y-4">
+
+        <span class="badge badge-primary capitalize">
+          ${product.category}
+        </span>
+
+        <h2 class="text-2xl font-bold">
+          ${product.title}
+        </h2>
+
+        <div class="flex items-center text-sm text-gray-600">
+          <i class="fa-solid fa-star text-yellow-400 mr-1"></i>
+          ${product.rating.rate} (${product.rating.count} reviews)
+        </div>
+
+        <p class="text-gray-600 text-sm">
+          ${product.description}
+        </p>
+
+        <p class="text-2xl font-bold text-blue-600">
+          $${product.price}
+        </p>
+
+        <button class="btn btn-primary w-full">
+          <i class="fa-solid fa-cart-shopping mr-2"></i> Add to Cart
+        </button>
+
+      </div>
+
+    </div>
+  `;
+
+  document.getElementById("detailsModal").showModal();
+};
+
