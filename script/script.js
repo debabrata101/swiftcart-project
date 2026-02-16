@@ -4,69 +4,69 @@ const productContainer = document.getElementById("product-container");
 
 // ================= LOAD CATEGORIES =================
 const loadCategory = () => {
-  fetch("https://fakestoreapi.com/products/categories")
-    .then(res => res.json())
-    .then(data => displayCategory(["all", ...data]));
+    fetch("https://fakestoreapi.com/products/categories")
+        .then(res => res.json())
+        .then(data => displayCategory(["all", ...data]));
 };
 
 
 // ================= DISPLAY CATEGORY BUTTONS =================
 const displayCategory = (categories) => {
 
-  categoryContainer.innerHTML = "";
+    categoryContainer.innerHTML = "";
 
-  categories.forEach((category, index) => {
+    categories.forEach((category, index) => {
 
-    const button = document.createElement("button");
-    button.innerText = category === "all" ? "All" : category;
+        const button = document.createElement("button");
+        button.innerText = category === "all" ? "All" : category;
 
-    button.className =
-      "px-5 py-2 rounded-full border border-blue-500 text-blue-500 transition";
+        button.className =
+            "px-5 py-2 rounded-full border border-blue-500 text-blue-500 transition";
 
-    // First button active
-    if (index === 0) {
-      setActive(button);
-      loadProducts("https://fakestoreapi.com/products");
-    }
+        // First button active
+        if (index === 0) {
+            setActive(button);
+            loadProducts("https://fakestoreapi.com/products");
+        }
 
-    button.addEventListener("click", () => {
+        button.addEventListener("click", () => {
 
-      removeActive(); 
-      setActive(button);
+            removeActive();
+            setActive(button);
 
-      if (category === "all") {
-        loadProducts("https://fakestoreapi.com/products");
-      } else {
-        loadProducts(`https://fakestoreapi.com/products/category/${category}`);
-      }
+            if (category === "all") {
+                loadProducts("https://fakestoreapi.com/products");
+            } else {
+                loadProducts(`https://fakestoreapi.com/products/category/${category}`);
+            }
+        });
+
+        categoryContainer.appendChild(button);
     });
-
-    categoryContainer.appendChild(button);
-  });
 };
 
 
 // ================= LOAD PRODUCTS =================
 const loadProducts = (url) => {
-  fetch(url)
-    .then(res => res.json())
-    .then(data => displayProducts(data));
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displayProducts(data));
 };
 
 
 // ================= DISPLAY PRODUCTS =================
 const displayProducts = (products) => {
 
-  productContainer.innerHTML = "";
+    productContainer.innerHTML = "";
 
-  products.forEach(product => {
+    products.forEach(product => {
 
-    const card = document.createElement("div");
+        const card = document.createElement("div");
 
-    card.className =
-      "bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden";
+        card.className =
+            "bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden";
 
-    card.innerHTML = `
+        card.innerHTML = `
       <div class="bg-gray-100 p-6">
         <img src="${product.image}" class="h-56 mx-auto object-contain">
       </div>
@@ -93,9 +93,11 @@ const displayProducts = (products) => {
         </p>
 
         <div class="flex gap-3 pt-2">
-          <button onclick="loadDetails(${product.id}) class="flex-1 border border-gray-300 text-gray-600 py-2 rounded-lg hover:bg-gray-100 transition">
-            <i class="fa-regular fa-eye mr-1"></i> Details
-          </button>
+         <button onclick="loadDetails(${product.id})"
+        class="flex-1 border border-gray-300 text-gray-600 py-2 rounded-lg hover:bg-gray-100 transition">
+  <i class="fa-regular fa-eye mr-1"></i> Details
+</button>
+
 
           <button class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
             <i class="fa-solid fa-cart-shopping mr-1"></i> Add
@@ -105,24 +107,24 @@ const displayProducts = (products) => {
       </div>
     `;
 
-    productContainer.appendChild(card);
-  });
+        productContainer.appendChild(card);
+    });
 };
 
 
 // ================= ACTIVE SYSTEM =================
 const setActive = (button) => {
-  button.classList.remove("text-blue-500", "border-blue-500");
-  button.classList.add("bg-blue-600", "text-white");
+    button.classList.remove("text-blue-500", "border-blue-500");
+    button.classList.add("bg-blue-600", "text-white");
 };
 
 const removeActive = () => {
-  const buttons = categoryContainer.querySelectorAll("button");
+    const buttons = categoryContainer.querySelectorAll("button");
 
-  buttons.forEach(btn => {
-    btn.classList.remove("bg-blue-600", "text-white");
-    btn.classList.add("text-blue-500", "border-blue-500");
-  });
+    buttons.forEach(btn => {
+        btn.classList.remove("bg-blue-600", "text-white");
+        btn.classList.add("text-blue-500", "border-blue-500");
+    });
 };
 
 loadCategory();
@@ -130,33 +132,33 @@ loadCategory();
 
 const loadDetails = (id) => {
 
-  fetch(`https://fakestoreapi.com/products/${id}`)
-    .then(res => res.json())
-    .then(data => showModal(data));
+    fetch(`https://fakestoreapi.com/products/${id}`)
+        .then(res => res.json())
+        .then(data => showDetailsModal(data));
 };
 
 //================DETAILS MODAL CARD ADD======================
-const showModal = (product) => {
+const showDetailsModal = (product) => {
 
-  const modalContent = document.getElementById("modal-content");
+    const modalContent = document.getElementById("modal-content");
 
-  modalContent.innerHTML = `
-    <div class="grid md:grid-cols-2 gap-6 p-6">
+    modalContent.innerHTML = `
+    <div class="grid md:grid-cols-2 gap-6">
 
-   
+      <!-- Image -->
       <div class="bg-gray-100 p-6 rounded-xl">
         <img src="${product.image}"
              class="h-64 mx-auto object-contain">
       </div>
 
-     
+      <!-- Details -->
       <div class="space-y-4">
 
         <span class="badge badge-primary capitalize">
           ${product.category}
         </span>
 
-        <h2 class="text-2xl font-bold">
+        <h2 class="text-xl font-bold">
           ${product.title}
         </h2>
 
@@ -182,6 +184,7 @@ const showModal = (product) => {
     </div>
   `;
 
-  document.getElementById("detailsModal").showModal();
+    document.getElementById("product_details_modal").showModal();
 };
+
 
