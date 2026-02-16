@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,16 +14,30 @@
 
     <script src="/style/style.css"></script>
 </head>
+
 <body>
     <section>
         <div id="navbar"></div>
     </section>
 
-    <h1>product loading</h1>
-
+    <section class="py-10">
+        <div class="flex justify-center items-center">
+            <h2 class="font-bold text-xl md:text-2xl">
+                Our Products
+            </h2>
+        </div>
+    </section>
+    <section class="flex flex-wrap justify-center gap-4 py-6" id="category-container"></section>
     <section>
+        <section class="p-6">
+            <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            </div>
+        </section>
+
         <div id="footer"></div>
     </section>
 </body>
 <script src="/components/include.js"></script>
+<script src="/script/script.js"></script>
+
 </html>
