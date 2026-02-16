@@ -99,7 +99,7 @@ const displayProducts = (products) => {
 </button>
 
 
-          <button class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+          <button onclick= "addToCart(${product.id}, '${product.title}', ${product.price}, '${product.image}')" class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
             <i class="fa-solid fa-cart-shopping mr-1"></i> Add
           </button>
         </div>
@@ -175,9 +175,9 @@ const showDetailsModal = (product) => {
           $${product.price}
         </p>
 
-        <button class="btn btn-primary w-full">
-          <i class="fa-solid fa-cart-shopping mr-2"></i> Add to Cart
-        </button>
+       <button onclick= "addToCart(${product.id}, '${product.title}', ${product.price}, '${product.image}')" class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+            <i class="fa-solid fa-cart-shopping mr-1"></i> Add
+          </button>
 
       </div>
 
@@ -246,7 +246,7 @@ const displayTrending = (products) => {
 </button>
 
 
-          <button class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+         <button onclick= "addToCart(${product.id}, '${product.title}', ${product.price}, '${product.image}')" class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
             <i class="fa-solid fa-cart-shopping mr-1"></i> Add
           </button>
         </div>
@@ -258,5 +258,46 @@ const displayTrending = (products) => {
     });
 };
 loadTrendingProducts();
+
+//========================== Cart============================
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+const updateCartCount = () => {
+
+    const cartCount = document.getElementById("cart-count");
+
+    if (!cartCount) return;
+
+    const cartData = JSON.parse(localStorage.getItem("cart")) || [];
+
+    let total = 0;
+    cartData.forEach(item => total += item.quantity);
+
+    cartCount.innerText = total;
+};
+
+updateCartCount();
+
+const addToCart = (id, title, price, image) => {
+
+    const existing = cart.find(item => item.id === id);
+
+    if (existing) {
+        existing.quantity += 1;
+    } else {
+        cart.push({
+            id,
+            title,
+            price,
+            image,
+            quantity: 1
+        });
+    }
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    console.log(cart);
+    updateCartCount();
+
+};
+
 
 
