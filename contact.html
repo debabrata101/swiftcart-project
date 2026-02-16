@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,16 +14,82 @@
 
     <script src="/style/style.css"></script>
 </head>
+
 <body>
     <section>
         <div id="navbar"></div>
     </section>
+        <section class="py-16 px-6 bg-gray-50">
 
-    <h1>product loading</h1>
+            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center"> 
+                <div>
+                    <h2 class="text-4xl font-bold mb-4">Get in Touch</h2>
+                    <p class="text-gray-600 mb-6">
+                        Have questions about products or orders?
+                        Send us a message and we’ll respond as soon as possible.
+                    </p>
 
+                    <div class="space-y-4 text-gray-600">
+                        <p><i class="fa-solid fa-location-dot text-blue-600 mr-2"></i> Chittagong , Bangladesh</p>
+                        <p><i class="fa-solid fa-envelope text-blue-600 mr-2"></i> support@swiftcart.com</p>
+                        <p><i class="fa-solid fa-phone text-blue-600 mr-2"></i> +880 01883137789</p>
+                    </div>
+                </div>
+                <div class="card bg-white shadow-xl">
+                    <div class="card-body">
+
+                        <form id="contactForm" class="space-y-4">
+                            <div>
+                                <label class="label">
+                                    <span class="label-text font-semibold">Full Name</span>
+                                </label>
+                                <input type="text" placeholder="Enter your name" class="input input-bordered w-full"
+                                    required />
+                            </div>
+                            <div>
+                                <label class="label">
+                                    <span class="label-text font-semibold">Email</span>
+                                </label>
+                                <input type="email" placeholder="Enter your email" class="input input-bordered w-full"
+                                    required />
+                            </div>
+                            <div>
+                                <label class="label">
+                                    <span class="label-text font-semibold">Subject</span>
+                                </label>
+                                <input type="text" placeholder="Enter subject" class="input input-bordered w-full"
+                                    required />
+                            </div>
+                            <div>
+                                <label class="label">
+                                    <span class="label-text font-semibold">Message</span>
+                                </label>
+                                <textarea placeholder="Write your message..."
+                                    class="textarea textarea-bordered w-full h-32" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-full">
+                                <i class="fa-solid fa-paper-plane mr-2"></i> Send Message
+                            </button>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
     <section>
         <div id="footer"></div>
     </section>
 </body>
+<script>
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        alert("Message Sent Successfully!");
+        this.reset();
+    });
+</script>
 <script src="/components/include.js"></script>
+
 </html>
