@@ -106,8 +106,8 @@ const displayProducts = (products) => {
 
       </div>
     `;
-
         productContainer.appendChild(card);
+
     });
 };
 
@@ -244,8 +244,6 @@ const displayTrending = (products) => {
         class="flex-1 border border-gray-300 text-gray-600 py-2 rounded-lg hover:bg-gray-100 transition">
   <i class="fa-regular fa-eye mr-1"></i> Details
 </button>
-
-
          <button onclick= "addToCart(${product.id}, '${product.title}', ${product.price}, '${product.image}')" class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
             <i class="fa-solid fa-cart-shopping mr-1"></i> Add
           </button>
@@ -293,6 +291,13 @@ const addToCart = (id, title, price, image) => {
         });
     }
     localStorage.setItem("cart", JSON.stringify(cart));
+    Swal.fire({
+        icon: "success",
+        title: "Added to Cart!",
+        text: cart.title,
+        timer: 1500,
+        showConfirmButton: false
+    });
 
     console.log(cart);
     updateCartCount();
