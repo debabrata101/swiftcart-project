@@ -186,5 +186,77 @@ const showDetailsModal = (product) => {
 
     document.getElementById("product_details_modal").showModal();
 };
+//=============Trending Products===========================
+const trendingContainer = document.getElementById("trending-container");
+
+const loadTrendingProducts = async () => {
+
+    const res = await fetch("https://fakestoreapi.com/products");
+    const products = await res.json();
+
+    const sortedProducts = products.sort(
+        (a, b) => b.rating.rate - a.rating.rate
+    );
+
+    const topThree = sortedProducts.slice(0, 3);
+
+    displayTrending(topThree);
+};
+const displayTrending = (products) => {
+
+    trendingContainer.innerHTML = "";
+
+    products.forEach(product => {
+
+        const card = document.createElement("div");
+
+        card.className =
+            "bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden";
+
+        card.innerHTML = `
+      <div class="bg-gray-100 p-6">
+        <img src="${product.image}" class="h-56 mx-auto object-contain">
+      </div>
+
+      <div class="p-5 space-y-3">
+
+        <div class="flex justify-between items-center">
+          <span class="bg-blue-100 text-blue-600 text-xs font-medium px-3 py-1 rounded-full capitalize">
+            ${product.category}
+          </span>
+
+          <div class="flex items-center text-sm text-gray-600">
+            <i class="fa-solid fa-star text-yellow-400 mr-1"></i>
+            ${product.rating.rate} (${product.rating.count})
+          </div>
+        </div>
+
+        <h2 class="text-gray-800 font-semibold text-sm line-clamp-2">
+          ${product.title}
+        </h2>
+
+        <p class="text-xl font-bold text-gray-900">
+          $${product.price}
+        </p>
+
+        <div class="flex gap-3 pt-2">
+         <button onclick="loadDetails(${product.id})"
+        class="flex-1 border border-gray-300 text-gray-600 py-2 rounded-lg hover:bg-gray-100 transition">
+  <i class="fa-regular fa-eye mr-1"></i> Details
+</button>
+
+
+          <button class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+            <i class="fa-solid fa-cart-shopping mr-1"></i> Add
+          </button>
+        </div>
+
+      </div>
+    `;
+
+        trendingContainer.append(card);
+    });
+};
+loadTrendingProducts();
 
 
