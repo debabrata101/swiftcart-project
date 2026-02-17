@@ -48,6 +48,7 @@ const displayCategory = (categories) => {
 
 // ================= LOAD PRODUCTS =================
 const loadProducts = (url) => {
+     manageSpinner(true)
     fetch(url)
         .then(res => res.json())
         .then(data => displayProducts(data));
@@ -109,6 +110,7 @@ const displayProducts = (products) => {
         productContainer.appendChild(card);
 
     });
+     manageSpinner(false)
 };
 
 
@@ -131,7 +133,7 @@ loadCategory();
 // ================= DETAILS =================
 
 const loadDetails = (id) => {
-
+    manageSpinner(true)
     fetch(`https://fakestoreapi.com/products/${id}`)
         .then(res => res.json())
         .then(data => showDetailsModal(data));
@@ -185,6 +187,7 @@ const showDetailsModal = (product) => {
   `;
 
     document.getElementById("product_details_modal").showModal();
+    manageSpinner(false)
 };
 //=============Trending Products===========================
 const trendingContainer = document.getElementById("trending-container");
@@ -254,6 +257,7 @@ const displayTrending = (products) => {
 
         trendingContainer.append(card);
     });
+     
 };
 loadTrendingProducts();
 
@@ -303,6 +307,17 @@ const addToCart = (id, title, price, image) => {
     updateCartCount();
 
 };
+//===================Spinner===========================
+const manageSpinner = (status) => {
+    if (status == true) {
+        document.getElementById("spinner").classList.remove("hidden")
+        document.getElementById("product-container").classList.add("hidden")
+    }
+    else {
+        document.getElementById("product-container").classList.remove("hidden")
+        document.getElementById("spinner").classList.add("hidden")
+    }
+}
 
 
 
